@@ -1,6 +1,8 @@
-# Mobile Robot LiDAR–IMU SLAM experiments
+# OMOROBOT R1 v2 navigation and LiDAR–IMU research
 
-This repository will host the ROS 2 Jazzy environment and reproducible LiDAR–IMU SLAM experiments. The local experiment plan is a proposal; no algorithm comparison results are available yet.
+This repository hosts a ROS 2 Jazzy development environment. The immediate target is 2D navigation for an OMOROBOT R1 v2 with a YDLIDAR G6. The LiDAR–IMU comparison remains a later research track.
+
+The confirmed setup is R1 v2, G6 2D LiDAR, no external IMU, and no installed 3D LiDAR. The [R1 v2 and Nav2 development roadmap](docs/r1_jazzy_roadmap.md) gives the staged plan. The current S1 bag is a generic 3D sensor pilot and does not model R1 hardware.
 
 ## Development environment
 
@@ -25,13 +27,14 @@ ros2 --help
 
 Stop the development container with `docker compose down`. The bind-mounted repository files remain on the host.
 
-## First implementation milestones
+## Next implementation milestones
 
-1. Generate and validate the S1 pilot bag using the commands below.
-2. Run KISS-ICP on that bag. Then choose and pin a ROS 2 Jazzy compatible FAST-LIO2 port and the LIO-SAM ROS 2 branch, verify each on its own official example, and connect them to the same bag. Record exact commits and any message adapters.
-3. Implement trajectory export and verified ATE, RPE, failure, and processing-time calculations. Run the 27 baseline cases only after the single-bag pilot passes.
+1. Record the R1 v2 motor and wheel-odometry interface, G6 scan interface, TF frames, and measured geometry.
+2. Build a Jazzy simulation with differential drive, 2D scan, wheel odometry, and an RViz view.
+3. Add SLAM Toolbox mapping, saved-map AMCL localization, and Nav2 goal navigation. Validate these in simulation before hardware use.
+4. When 3D LiDAR and IMU hardware is selected, resume the S1 algorithm-comparison track below.
 
-Keep ground truth isolated from algorithm input topics. Disable LIO-SAM loop closure and GPS correction when comparing local odometry. Any algorithm-specific point-field conversion belongs in a versioned adapter, not in an undocumented manual bag edit.
+For the later 3D comparison, keep ground truth isolated from algorithm input topics. Disable LIO-SAM loop closure and GPS correction when comparing local odometry. Any algorithm-specific point-field conversion belongs in a versioned adapter, not in an undocumented manual bag edit.
 
 ## S1 pilot bag
 
@@ -52,12 +55,12 @@ The fixed bag timestamp is synthetic and is not a data collection date. This pil
 
 The preview reads the recorded bag. It plots two LiDAR scans in map coordinates using the recorded ground-truth pose to place the points, alongside the true trajectory, forward speed, and heading. This is a visualization of the simulated input and truth, not a SLAM result.
 
-## Hardware transition
+## Hardware transition for the later 3D research track
 
-The same topic and frame contract should be used when physical sensors arrive. Before recording comparison data, measure LiDAR–IMU time offset, extrinsic transform, and stationary IMU noise. Replace simulation assumptions with measured values in a versioned configuration; retain the original synthetic bags for regression checks.
+When the 3D LiDAR and IMU are installed, measure their time offset, extrinsic transform, and stationary IMU noise before recording comparison data. Replace simulation assumptions with measured values in a versioned configuration; retain the original synthetic bags for regression checks.
 
 The Docker Compose setup is intended for offline development and bag replay. When connecting live sensors, check DDS discovery and device access on the target Ubuntu machine; Docker Desktop networking on Windows may need a different runtime configuration.
 
 ## Current status
 
-The Jazzy container, sensor contract, and S1 pilot bag generator are available. No SLAM algorithm port, physical sensor driver, or trajectory evaluation package has been added yet.
+The Jazzy container, 3D sensor contract, and S1 pilot bag generator are available. The R1 v2 simulation, G6 driver integration, SLAM Toolbox/Nav2 configuration, and physical robot interface are not implemented yet.
