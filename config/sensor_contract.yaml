@@ -1,0 +1,31 @@
+# Common simulated and future hardware interface. Topic names may be remapped
+# at the driver boundary; frame and timestamp semantics must stay consistent.
+ros_distro: jazzy
+frames:
+  world: map
+  robot: base_link
+  lidar: velodyne
+  imu: imu_link
+topics:
+  points: /points_raw
+  imu: /imu/data
+  ground_truth: /ground_truth
+  clock: /clock
+lidar:
+  model: vlp16_like_simulation
+  scan_rate_hz: 10
+  channels: 16
+  point_fields: [x, y, z, intensity, ring, time]
+  point_time_unit: seconds
+  point_time_reference: scan_start
+imu:
+  rate_hz: 200
+  angular_velocity_unit: rad_per_second
+  linear_acceleration_unit: meters_per_second_squared
+  acceleration_semantics: specific_force
+  orientation_source: independent_sensor_model
+ground_truth:
+  message_type: nav_msgs/msg/Odometry
+  excluded_from_algorithm_inputs: true
+
+\n

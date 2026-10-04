@@ -1,0 +1,14 @@
+services:
+  ros:
+    build: .
+    image: mobile-robot:jazzy
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    environment:
+      ROS_DOMAIN_ID: "42"
+    stdin_open: true
+    tty: true
+    command: sleep infinity
+
+\n

@@ -1,0 +1,9 @@
+.git
+build
+install
+log
+data
+results
+*.docx
+
+\n

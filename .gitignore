@@ -1,0 +1,13 @@
+build/
+install/
+log/
+data/
+results/
+*.db3
+*.mcap
+__pycache__/
+.pytest_cache/
+.vscode/
+.idea/
+
+\n
