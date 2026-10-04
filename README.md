@@ -43,5 +43,3 @@ The Docker Compose setup is intended for offline development and bag replay. Whe
 ## Current status
 
 The Jazzy container and interface contract are the starting point. No simulator, algorithm port, driver, or evaluation package has been added yet.
-
-\n

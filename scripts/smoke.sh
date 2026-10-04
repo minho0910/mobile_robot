@@ -14,5 +14,3 @@ ros2 interface show nav_msgs/msg/Odometry >/dev/null
 ros2 interface show rosgraph_msgs/msg/Clock >/dev/null
 
 echo "ROS 2 Jazzy environment and required message types: OK"
-
-\n

@@ -2,4 +2,3 @@
 *.sh text eol=lf
 Dockerfile text eol=lf
 *.docx binary
-\n

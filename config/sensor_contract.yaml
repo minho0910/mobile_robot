@@ -27,5 +27,3 @@ imu:
 ground_truth:
   message_type: nav_msgs/msg/Odometry
   excluded_from_algorithm_inputs: true
-
-\n

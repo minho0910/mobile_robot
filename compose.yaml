@@ -10,5 +10,3 @@ services:
     stdin_open: true
     tty: true
     command: sleep infinity
-
-\n
