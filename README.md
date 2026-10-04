@@ -43,11 +43,14 @@ Run these commands after `docker compose up -d --build`. Choose a new output dir
 docker compose exec ros bash -c "source /opt/ros/jazzy/setup.bash; python3 scripts/generate_s1.py --output data/s1_seed001 --seed 1"
 docker compose exec ros bash -c "source /opt/ros/jazzy/setup.bash; python3 scripts/validate_s1.py data/s1_seed001"
 docker compose exec ros bash -c "source /opt/ros/jazzy/setup.bash; ros2 bag info data/s1_seed001"
+docker compose exec ros bash -c "source /opt/ros/jazzy/setup.bash; python3 scripts/plot_s1.py data/s1_seed001 --output results/s1_preview.png"
 ```
 
 The validator checks topic counts and types, timestamps, point-field layout, per-point relative time, TF frame names, stationary IMU specific force, motion phases, and the semantic SHA-256 in `manifest.json`. It hashes message values because serialized CDR padding and SQLite metadata can differ between otherwise identical runs. A 15-second bag contains 150 clouds, 3,000 IMU samples, 150 truth poses, and 3,000 clock messages; expect roughly 50 MiB of bag data.
 
 The fixed bag timestamp is synthetic and is not a data collection date. This pilot uses a simplified raycast and noise model, so it is an interface and pipeline check rather than a sensor-fidelity benchmark. Ground truth is recorded only on `/ground_truth`; no `map -> base_link` truth TF is published.
+
+The preview reads the recorded bag. It plots two LiDAR scans in map coordinates using the recorded ground-truth pose to place the points, alongside the true trajectory, forward speed, and heading. This is a visualization of the simulated input and truth, not a SLAM result.
 
 ## Hardware transition
 

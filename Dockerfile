@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     python3-colcon-common-extensions \
+    python3-matplotlib \
     python3-numpy \
     python3-rosdep \
     ros-jazzy-rosbag2 \
